@@ -1,7 +1,8 @@
 from marshmallow import Schema, fields
 
 class ConsumptionResponseSchema(Schema):
-
+    
+    id = fields.Integer(dump_only=True)
     client_name = fields.String(required=True)
     balance = fields.Float(required=True)
     currency = fields.String(required=True)

@@ -59,6 +59,7 @@ class ItemList(MethodView):
             serialized_data = schema.dump(clients)
             
             current_app.logger.info(f"Datos serializados: {len(serialized_data)} elementos")
+            current_app.logger.info(f"Datos serializados: {serialized_data}")
             return jsonify(serialized_data)
             
         except Exception as e:
