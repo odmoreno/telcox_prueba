@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:14-alpine
@@ -33,6 +31,17 @@ services:
       db:
         condition: service_healthy
     command: ["bash", "/app/start.sh"]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: telcox_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
     
 volumes:
   telcox_postgres_data:
