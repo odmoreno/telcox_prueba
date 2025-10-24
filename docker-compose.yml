@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14-alpine
+    container_name: telcox_db
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5432:5432" 
+    volumes:
+      - telcox_postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: telcox_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - POSTGRES_HOST=db 
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["bash", "/app/start.sh"]
+    
+volumes:
+  telcox_postgres_data:

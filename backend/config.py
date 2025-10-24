@@ -24,9 +24,9 @@ class Config:
     API_TITLE = "TelcoX BSS Mock API"
     API_VERSION = "v1"
     OPENAPI_VERSION = "3.0.3"
-    OPENAPI_URL_PREFIX = "/"
-    OPENAPI_SWAGGER_UI_PATH = "/swagger-ui"
-    OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/"
+    OPENAPI_URL_PREFIX = "/api/v1"
+    OPENAPI_SWAGGER_UI_PATH = "/docs"
+    OPENAPI_SWAGGER_UI_URL = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
 class DevelopmentConfig(Config):
     FLASK_ENV = 'development'
@@ -35,5 +35,5 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     FLASK_ENV = 'testing'
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:" # Base de datos en memoria para pruebas
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:" 
 
