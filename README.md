@@ -1,8 +1,16 @@
-# TelcoX BSS Mock API
+# TelcoX - Sistema de Consumo de Clientes
 
-API mock para simular un sistema BSS (Business Support System) de telecomunicaciones.
+Sistema completo de gestión de consumo de clientes con **Backend Flask** y **Frontend React**, containerizado con Docker.
 
-## 🚀 Ejecución con Docker Compose
+## 🎯 Características
+
+- **Backend**: API REST con Flask + SQLAlchemy + PostgreSQL
+- **Frontend**: React + TypeScript + Vite + Bootstrap
+- **Base de datos**: PostgreSQL con datos de ejemplo
+- **Containerización**: Docker Compose completo
+- **Documentación**: Swagger UI automática
+
+## 🚀 Ejecución Rápida
 
 ### Prerrequisitos
 - [Docker](https://docs.docker.com/get-docker/)
@@ -24,60 +32,170 @@ API mock para simular un sistema BSS (Business Support System) de telecomunicaci
    POSTGRES_PORT=5432
    ```
 
-3. **Ejecuta el proyecto:**
+3. **Ejecuta todo el stack:**
    ```bash
-   docker-compose build
-   docker-compose up -d
+   docker-compose up --build -d
    ```
 
-### 🎯 Acceso
-- **API:** http://localhost:5000
-- **Swagger:** http://localhost:5000/docs
+## ✅ ¡ÉXITO! Docker Compose Completo Funcionando
 
-## 🔧 Ejecución sin Docker Compose
+### 🎉 Estado Actual:
+- **✅ Base de datos**: PostgreSQL funcionando (puerto 5432)
+- **✅ Backend**: Flask funcionando (puerto 5000)
+- **✅ Frontend**: React + Nginx funcionando (puerto 3000)
 
-### Prerrequisitos
-- Python 3.8+
-- PostgreSQL
+### 🌐 URLs Disponibles:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:5000
+- **Documentación API**: http://localhost:5000/docs
+- **Base de datos**: localhost:5432
 
-### Configuración
-1. **Instala dependencias:**
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   ```
+### 📋 Endpoints para Probar:
+- `GET /client/` - Lista todos los clientes
+- `GET /client/1` - Cliente específico por ID
 
-2. **Configura PostgreSQL:**
-   - Crea una base de datos llamada `telcox_db`
-   - Configura las variables de entorno o modifica `config.py`
+### 🚀 Para la Demo:
+1. **Abre http://localhost:3000** - Aplicación React completa
+2. **Abre http://localhost:5000/docs** - Documentación de la API
+3. **Prueba los endpoints** - Lista y detalles de clientes
 
-3. **Ejecuta la aplicación:**
-   ```bash
-   python app.py
-   ```
+## 🏗️ Arquitectura del Proyecto
 
-## 🧪 Ejecutar Tests
+```
+telcox_prueba/
+├── backend/                 # API Flask
+│   ├── models/             # Modelos SQLAlchemy
+│   ├── resources/          # Endpoints REST
+│   ├── schemas.py          # Serialización Marshmallow
+│   └── Dockerfile          # Imagen Python
+├── frontend/               # App React
+│   ├── src/
+│   │   ├── components/     # Componentes React
+│   │   ├── store/          # Estado Zustand
+│   │   ├── resources/      # Cliente Axios
+│   │   └── types/          # Tipos TypeScript
+│   ├── Dockerfile          # Imagen Node.js + Nginx
+│   └── nginx.conf          # Configuración Nginx
+└── docker-compose.yml      # Orquestación completa
+```
+
+## 🔧 Desarrollo Local (Alternativa)
+
+### Backend Local
+```bash
+# Terminal 1 - Solo DB en Docker
+docker-compose up db -d
+
+# Terminal 2 - Backend local
+cd backend
+python app.py
+```
+
+### Frontend Local
+```bash
+# Terminal 3 - Frontend local
+cd frontend
+npm install
+npm run dev
+```
+
+## 🧪 Testing
 
 ```bash
-# Con Docker Compose
+# Tests con Docker
 docker-compose exec backend pytest
 
-# Sin Docker Compose
+# Tests locales
 cd backend
 pytest
 
-# Con más detalle (verbose)
+# Tests detallados
 python -m pytest test_client_endpoint.py -v
 ```
 
-### Comandos útiles
+## 📊 Datos de Ejemplo
+
+El sistema incluye **10 clientes de ejemplo** con:
+- Información personal
+- Saldo y moneda
+- Consumo de datos (GB)
+- Consumo de minutos
+- Barras de progreso visuales
+
+## 🛠️ Comandos Útiles
+
 ```bash
-# Ver logs
+# Ver estado de servicios
+docker-compose ps
+
+# Ver logs en tiempo real
 docker-compose logs -f
 
-# Detener servicios
+# Ver logs de un servicio específico
+docker-compose logs backend
+docker-compose logs frontend
+
+# Detener todos los servicios
 docker-compose down
 
-# Reconstruir
+# Reconstruir y ejecutar
 docker-compose up --build -d
+
+# Ejecutar solo backend + DB
+docker-compose up db backend
+
+# Ejecutar solo frontend
+docker-compose up frontend
 ```
+
+## 🐛 Solución de Problemas
+
+### Docker se queda en "sending tarball"
+- **Solución**: Usar desarrollo local (DB en Docker + Backend/Frontend local)
+- **Causa**: Docker en Windows puede ser lento con builds grandes
+
+### Error de CORS
+- **Verificar**: El backend tiene `CORS(app)` habilitado
+- **URLs**: Frontend en puerto 3000, Backend en puerto 5000
+
+### Puerto ocupado
+- **Cambiar puertos** en `docker-compose.yml` si es necesario
+- **Verificar**: `netstat -an | findstr :5000`
+
+## 📝 Tecnologías Utilizadas
+
+### Backend
+- **Flask** - Framework web
+- **SQLAlchemy** - ORM
+- **PostgreSQL** - Base de datos
+- **Marshmallow** - Serialización
+- **Flask-Smorest** - API REST + Swagger
+
+### Frontend
+- **React 18** - Biblioteca UI
+- **TypeScript** - Tipado estático
+- **Vite** - Bundler rápido
+- **Zustand** - Estado global
+- **Axios** - Cliente HTTP
+- **Bootstrap 5** - Framework CSS
+
+### DevOps
+- **Docker** - Containerización
+- **Docker Compose** - Orquestación
+- **Nginx** - Servidor web
+- **Multi-stage builds** - Optimización
+
+## 🎯 Funcionalidades
+
+### Lista de Clientes
+- ✅ Muestra todos los clientes disponibles
+- ✅ Tarjetas con información básica
+- ✅ Botón para ver detalles
+
+### Detalles del Cliente
+- ✅ Búsqueda por ID
+- ✅ Información completa del cliente
+- ✅ Barras de progreso para datos y minutos
+- ✅ Resumen de uso restante
+
+¡La aplicación está completamente funcional en Docker!

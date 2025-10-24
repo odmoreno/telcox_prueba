@@ -1,0 +1,467 @@
+/* Estilos personalizados para la aplicación */
+
+.App {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Layout de dos paneles */
+.two-panel-layout {
+  min-height: calc(100vh - 120px);
+  height: calc(100vh - 120px);
+}
+
+.left-panel {
+  border-right: 1px solid #dee2e6;
+  padding-right: 1rem;
+  height: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+}
+
+.right-panel {
+  padding-left: 1rem;
+  height: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+}
+
+/* Estilos para las tarjetas de clientes */
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Estilos para tarjetas de clientes en el panel izquierdo */
+.client-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.client-card:hover {
+  border: 2px solid #007bff;
+  transform: translateY(-2px);
+}
+
+.client-card.selected {
+  border: 2px solid #007bff;
+  background-color: #f8f9fa;
+}
+
+/* Estilos para scroll personalizado */
+.left-panel::-webkit-scrollbar,
+.right-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.left-panel::-webkit-scrollbar-track,
+.right-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.left-panel::-webkit-scrollbar-thumb,
+.right-panel::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.left-panel::-webkit-scrollbar-thumb:hover,
+.right-panel::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth scrolling */
+.left-panel,
+.right-panel {
+  scroll-behavior: smooth;
+}
+
+/* Indicador de scroll para el panel izquierdo */
+.left-panel::after {
+  content: '';
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(transparent, rgba(248, 249, 250, 0.8));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Mejorar el padding del contenido para evitar que se corte */
+.left-panel .row {
+  padding-bottom: 1rem;
+}
+
+/* Estilos para tarjetas expandidas */
+.expanded-card {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+  transform: none !important;
+  border: 2px solid #007bff;
+  border-radius: 12px;
+}
+
+.expanded-card .card-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+  color: white !important;
+  border-radius: 10px 10px 0 0 !important;
+}
+
+/* Centrar la tarjeta expandida con márgenes */
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Responsive para el layout de dos paneles */
+@media (max-width: 991px) {
+  .two-panel-layout {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .left-panel {
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  .right-panel {
+    padding-left: 0;
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+  .left-panel {
+    height: 40vh;
+    max-height: 40vh;
+  }
+  
+  .right-panel {
+    height: 60vh;
+    max-height: 60vh;
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 576px) {
+  .left-panel {
+    height: 35vh;
+    max-height: 35vh;
+  }
+  
+  .right-panel {
+    height: 65vh;
+    max-height: 65vh;
+  }
+}
+
+/* Responsive para la tarjeta expandida */
+@media (max-width: 768px) {
+  .expanded-card {
+    margin: 0 1rem;
+  }
+}
+
+/* Animación suave para la expansión */
+.collapse {
+  transition: all 0.3s ease-in-out;
+}
+
+.collapse.show {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Grid responsive para las tarjetas */
+.row {
+  margin: 0 -0.5rem;
+}
+
+.col-md-6, .col-lg-4, .col-xl-3 {
+  padding: 0 0.5rem;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom: none;
+}
+
+/* Estilos para las barras de progreso */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  border-radius: 4px;
+}
+
+/* Estilos para el navbar */
+.navbar {
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #fff !important;
+}
+
+.navbar-brand:hover {
+  color: #f8f9fa !important;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #f8f9fa !important;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin: 0 0.25rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-nav .nav-link.active {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+/* Estilos para los tabs */
+.nav-tabs .nav-link {
+  border: none;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: transparent;
+  border-bottom: 2px solid #007bff;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: transparent;
+  color: #007bff;
+}
+
+/* Estilos para los botones */
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Estilos para los formularios */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Estilos específicos para el formulario de búsqueda */
+.form-control-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Mejorar alineación del formulario */
+.align-items-end .form-group {
+  margin-bottom: 0;
+}
+
+.align-items-end .btn {
+  margin-top: 0;
+}
+
+/* Estilos para las alertas */
+.alert {
+  border-radius: 8px;
+  border: none;
+}
+
+/* Estilos para el spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Estilos para el contenedor principal */
+.container-fluid {
+  padding: 0 1rem;
+  max-width: 100%;
+}
+
+/* Responsive design */
+@media (min-width: 1200px) {
+  .container-fluid {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container-fluid {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 0 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .btn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-fluid {
+    padding: 0 0.5rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .card {
+    margin-bottom: 0.5rem;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Media queries adicionales para tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+}
+
+/* Media queries para pantallas grandes */
+@media (min-width: 1200px) {
+  .card {
+    margin-bottom: 2rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.6rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Estilos para el texto */
+.text-primary {
+  color: #007bff !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+/* Estilos para el footer */
+.footer {
+  background-color: #343a40;
+  color: white;
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+/* Estilos para los iconos */
+.bi {
+  margin-right: 0.5rem;
+}
