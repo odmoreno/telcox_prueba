@@ -128,6 +128,7 @@ npm run dev
 
 ## 🧪 Testing
 
+### Backend Tests
 ```bash
 # Tests con Docker
 docker-compose exec backend pytest
@@ -138,6 +139,48 @@ pytest
 
 # Tests detallados
 python -m pytest test_client_endpoint.py -v
+```
+
+### Frontend Tests
+```bash
+# Ejecutar tests del frontend
+cd frontend
+npm install
+npm run test
+
+# Tests con interfaz visual
+npm run test:ui
+
+# Tests con cobertura
+npm run test:coverage
+```
+
+**Nota**: Los tests del frontend requieren que el backend esté disponible. Si no está disponible, los tests se saltarán automáticamente.
+
+### Tests de Integración del Frontend
+
+Los tests del frontend incluyen:
+
+- **Tests de API**: Comunicación con endpoints del backend (`GET /client/`, `GET /client/{id}`)
+- **Validación de datos**: Estructura, tipos y valores de respuesta
+- **Manejo de errores**: Backend no disponible, timeouts, etc.
+
+#### Ejecutar tests con backend disponible:
+```bash
+# Terminal 1: Backend
+cd backend
+python app.py
+
+# Terminal 2: Tests del frontend
+cd frontend
+npm run test
+```
+
+#### Ejecutar tests sin backend:
+```bash
+cd frontend
+npm run test
+# Los tests se saltarán automáticamente si el backend no está disponible
 ```
 
 ## 📊 Datos de Ejemplo
@@ -173,6 +216,13 @@ docker-compose up db backend
 
 # Ejecutar solo frontend
 docker-compose up frontend
+
+# Tests del frontend
+cd frontend
+npm run test
+
+# Tests con interfaz visual
+npm run test:ui
 ```
 
 ## 📁 Archivos de Configuración
@@ -245,6 +295,8 @@ cp frontend/.env.example frontend/.env
 - **Zustand** - Estado global
 - **Axios** - Cliente HTTP
 - **Bootstrap 5** - Framework CSS
+- **Vitest** - Testing framework
+- **React Testing Library** - Testing de componentes
 
 ### DevOps
 - **Docker** - Containerización
