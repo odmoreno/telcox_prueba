@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_smorest import Api, Blueprint
-from config import DevelopmentConfig # Importar la configuración
+from config import DevelopmentConfig, TestingConfig # Importar las configuraciones
 from db import db
 
 from resources.client import blp as consumptionBlueprint
@@ -12,7 +12,11 @@ def create_app(config_name=None):
     """
     app = Flask(__name__)
     
-    app.config.from_object(DevelopmentConfig)
+    # Seleccionar configuración basada en el parámetro
+    if config_name == 'testing':
+        app.config.from_object(TestingConfig)
+    else:
+        app.config.from_object(DevelopmentConfig)
 
     db.init_app(app)
 

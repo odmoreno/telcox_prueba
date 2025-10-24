@@ -6,7 +6,7 @@ from db import db
 from models.client import ClientConsumption
 from schemas import ConsumptionResponseSchema, ErrorResponseSchema
 
-blp = Blueprint('Consumption', __name__, url_prefix='/api/v1/client', description='API para consulta de consumo de clientes')
+blp = Blueprint('Consumption', __name__, url_prefix='/client', description='API para consulta de consumo de clientes')
 
 @blp.route('/<int:client_id>')
 class ClientConsumptionResource(MethodView):
@@ -35,6 +35,32 @@ class ClientConsumptionResource(MethodView):
             serialized_data = schema.dump(client)
             return jsonify(serialized_data)
 
+        except Exception as e:
+            if hasattr(e, 'code') and e.code in [404, 400, 422]:
+                raise e
+            current_app.logger.error(f"Error en endpoint: {str(e)}", exc_info=True)
+            abort(500, message=f"Error interno del servidor: {str(e)}", code="INTERNAL_SERVER_ERROR", status="500")
+
+
+@blp.route("/")
+class ItemList(MethodView):
+    @blp.doc(description="Obtiene la lista de todos los clientes con su información de consumo.")
+    @blp.response(200, ConsumptionResponseSchema(many=True), description="Lista de clientes obtenida exitosamente.")
+    @blp.response(500, ErrorResponseSchema, description="Error interno del servidor.")
+    def get(self): 
+        """
+        Obtener lista de todos los clientes con su información de consumo.
+        """
+        try:
+            clients = ClientConsumption.query.all()
+            current_app.logger.info(f"Clientes encontrados: {len(clients)} registros")
+            
+            schema = ConsumptionResponseSchema(many=True)
+            serialized_data = schema.dump(clients)
+            
+            current_app.logger.info(f"Datos serializados: {len(serialized_data)} elementos")
+            return jsonify(serialized_data)
+            
         except Exception as e:
             current_app.logger.error(f"Error en endpoint: {str(e)}", exc_info=True)
             abort(500, message=f"Error interno del servidor: {str(e)}", code="INTERNAL_SERVER_ERROR", status="500")
