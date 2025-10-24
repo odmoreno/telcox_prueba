@@ -23,13 +23,32 @@ Sistema completo de gestión de consumo de clientes con **Backend Flask** y **Fr
    cd telcox_prueba
    ```
 
-2. **Crea el archivo `.env` en `backend/`:**
+2. **Crea los archivos `.env` necesarios:**
+
+   **Backend** (`backend/.env`):
+   ```bash
+   # Copia desde el archivo de ejemplo
+   cp backend/.env.example backend/.env
+   ```
+   
+   O crea manualmente `backend/.env`:
    ```env
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=postgres
    POSTGRES_DB=telcox_db
    POSTGRES_HOST=db
    POSTGRES_PORT=5432
+   ```
+
+   **Frontend** (`frontend/.env`):
+   ```bash
+   # Copia desde el archivo de ejemplo
+   cp frontend/.env.example frontend/.env
+   ```
+   
+   O crea manualmente `frontend/.env`:
+   ```env
+   VITE_API_URL=http://localhost:5000
    ```
 
 3. **Ejecuta todo el stack:**
@@ -81,13 +100,21 @@ telcox_prueba/
 
 ## 🔧 Desarrollo Local (Alternativa)
 
+### Configuración inicial
+```bash
+# 1. Crear archivos .env
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+
+# 2. Solo DB en Docker
+docker-compose up db -d
+```
+
 ### Backend Local
 ```bash
-# Terminal 1 - Solo DB en Docker
-docker-compose up db -d
-
 # Terminal 2 - Backend local
 cd backend
+pip install -r requirements.txt
 python app.py
 ```
 
@@ -148,6 +175,41 @@ docker-compose up db backend
 docker-compose up frontend
 ```
 
+## 📁 Archivos de Configuración
+
+### Archivos `.env` Requeridos
+
+**Backend** (`backend/.env`):
+```env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=telcox_db
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+FLASK_ENV=development
+FLASK_DEBUG=True
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=postgresql://postgres:postgres@db:5432/telcox_db
+```
+
+**Frontend** (`frontend/.env`):
+```env
+VITE_API_URL=http://localhost:5000
+VITE_APP_TITLE=TelcoX - Sistema de Consumo de Clientes
+VITE_APP_VERSION=1.0.0
+VITE_API_TIMEOUT=10000
+VITE_API_RETRY_ATTEMPTS=3
+```
+
+### Crear archivos `.env` desde ejemplos
+```bash
+# Backend
+cp backend/.env.example backend/.env
+
+# Frontend  
+cp frontend/.env.example frontend/.env
+```
+
 ## 🐛 Solución de Problemas
 
 ### Docker se queda en "sending tarball"
@@ -161,6 +223,11 @@ docker-compose up frontend
 ### Puerto ocupado
 - **Cambiar puertos** en `docker-compose.yml` si es necesario
 - **Verificar**: `netstat -an | findstr :5000`
+
+### Archivos `.env` faltantes
+- **Error**: "Environment variable not found"
+- **Solución**: Crear los archivos `.env` en `backend/` y `frontend/`
+- **Verificar**: Que los archivos tengan las variables correctas
 
 ## 📝 Tecnologías Utilizadas
 
@@ -183,7 +250,6 @@ docker-compose up frontend
 - **Docker** - Containerización
 - **Docker Compose** - Orquestación
 - **Nginx** - Servidor web
-- **Multi-stage builds** - Optimización
 
 ## 🎯 Funcionalidades
 
